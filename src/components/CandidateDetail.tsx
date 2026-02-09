@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface CandidateDetailProps {
   candidateId: string;
@@ -161,9 +161,13 @@ type Tab = 'manifesto' | 'activities';
 export function CandidateDetail({ candidateId, onBack }: CandidateDetailProps) {
   const [activeTab, setActiveTab] = useState<Tab>('manifesto');
   const candidate = candidateData[candidateId] || candidateData['1'];
+  
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [candidateId]);
 
   return (
-    <div className="min-h-screen pb-20">
+    <div className="min-h-screen pb-40">
       {/* ヘッダー */}
       <div className="sticky top-0 bg-white border-b border-gray-200 z-10">
         <div className="flex items-center h-14 px-4">
@@ -208,67 +212,76 @@ export function CandidateDetail({ candidateId, onBack }: CandidateDetailProps) {
       </div>
 
       {/* コンテンツ */}
-      <div className="p-4">
+      <div className="p-4 pb-6 space-y-6">
         {activeTab === 'manifesto' && (
           <div className="space-y-4">
-            {candidate.manifesto.map((item) => (
-              <div
-                key={item.id}
-                className="border border-gray-200 rounded-lg p-4"
-              >
-                <div className="mb-3">
-                  {item.title}
+            <div className="space-y-4">
+              {candidate.manifesto.map((item) => (
+                <div
+                  key={item.id}
+                  className="border border-gray-200 rounded-lg p-4"
+                >
+                  <div className="mb-3">
+                    {item.title}
+                  </div>
+                  <p className="text-sm text-gray-600 mb-3">
+                    {item.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {item.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-700"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                <p className="text-sm text-gray-600 mb-3">
-                  {item.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {item.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-700"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            <div className="pt-2">
+              <button className="w-full py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors">
+                この候補者を支援する
+              </button>
+            </div>
+            <div className="h-16" />
           </div>
         )}
 
         {activeTab === 'activities' && (
           <div className="space-y-4">
-            {candidate.activities.map((item, index) => (
-              <div key={item.id} className="relative pl-6 pb-4">
-                {/* タイムライン線 */}
-                {index !== candidate.activities.length - 1 && (
-                  <div className="absolute left-1.5 top-2 bottom-0 w-px bg-gray-200" />
-                )}
-                
-                {/* タイムラインドット */}
-                <div className="absolute left-0 top-2 w-3 h-3 bg-black rounded-full" />
-                
-                <div className="text-sm text-gray-500 mb-1">
-                  {item.date}
+            <div className="space-y-4">
+              {candidate.activities.map((item, index) => (
+                <div key={item.id} className="relative pl-6 pb-4">
+                  {/* タイムライン線 */}
+                  {index !== candidate.activities.length - 1 && (
+                    <div className="absolute left-1.5 top-2 bottom-0 w-px bg-gray-200" />
+                  )}
+                  
+                  {/* タイムラインドット */}
+                  <div className="absolute left-0 top-2 w-3 h-3 bg-black rounded-full" />
+                  
+                  <div className="text-sm text-gray-500 mb-1">
+                    {item.date}
+                  </div>
+                  <div className="mb-2">
+                    {item.title}
+                  </div>
+                  <p className="text-sm text-gray-600">
+                    {item.description}
+                  </p>
                 </div>
-                <div className="mb-2">
-                  {item.title}
-                </div>
-                <p className="text-sm text-gray-600">
-                  {item.description}
-                </p>
-              </div>
-            ))}
+              ))}
+            </div>
+            <div className="pt-2">
+              <button className="w-full py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors">
+                この候補者を支援する
+              </button>
+            </div>
+            <div className="h-16" />
           </div>
         )}
-      </div>
-
-      {/* 支援ボタン */}
-      <div className="fixed bottom-20 left-1/2 -translate-x-1/2 w-full max-w-[390px] px-4">
-        <button className="w-full py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors">
-          この候補者を支援する
-        </button>
       </div>
     </div>
   );
