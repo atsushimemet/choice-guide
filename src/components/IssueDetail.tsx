@@ -416,12 +416,6 @@ export function IssueDetail({ issueId, onBack, onCandidateSelect }: IssueDetailP
         </section>
       </div>
 
-      {/* 支援ボタン */}
-      <div className="fixed bottom-20 left-1/2 -translate-x-1/2 w-full max-w-[390px] px-4">
-        <button className="w-full py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors">
-          この論点で支援する
-        </button>
-      </div>
     </div>
   );
 }
