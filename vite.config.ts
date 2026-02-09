@@ -49,10 +49,10 @@
         '@': path.resolve(__dirname, './src'),
       },
     },
-    build: {
-      target: 'esnext',
-      outDir: 'build',
-    },
+  build: {
+    target: 'esnext',
+    outDir: 'dist', // Use Vite's default output dir so Vercel finds the build artifacts
+  },
     server: {
       port: 3000,
       open: true,
