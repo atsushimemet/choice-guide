@@ -350,26 +350,6 @@ export function IssueDetail({ issueId, onBack, onCandidateSelect }: IssueDetailP
           </p>
         </section>
 
-        {/* 候補者 */}
-        <section>
-          <h2 className="text-sm text-gray-500 mb-3">候補者</h2>
-          <div className="space-y-3">
-            {issue.candidates.map((candidate, index) => (
-              <div key={index} className="border border-gray-200 rounded-lg p-4">
-                <div className="mb-2">
-                  {candidate.name} ({candidate.party})
-                </div>
-                <button
-                  className="w-full py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-sm"
-                  onClick={() => onCandidateSelect(candidate.id)}
-                >
-                  詳細を見る
-                </button>
-              </div>
-            ))}
-          </div>
-        </section>
-
         {/* 選択肢 */}
         <section>
           <h2 className="text-sm text-gray-500 mb-3">主な選択肢</h2>
@@ -410,6 +390,26 @@ export function IssueDetail({ issueId, onBack, onCandidateSelect }: IssueDetailP
                 
                 <div className="text-sm text-gray-500 mb-1">{item.date}</div>
                 <div className="text-sm text-gray-700">{item.event}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 候補者 */}
+        <section>
+          <h2 className="text-sm text-gray-500 mb-3">候補者</h2>
+          <div className="space-y-3">
+            {issue.candidates.map((candidate, index) => (
+              <div key={index} className="border border-gray-200 rounded-lg p-4">
+                <div className="mb-2">
+                  {candidate.name} ({candidate.party})
+                </div>
+                <button
+                  className="w-full py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-sm"
+                  onClick={() => onCandidateSelect(candidate.id)}
+                >
+                  詳細を見る
+                </button>
               </div>
             ))}
           </div>
